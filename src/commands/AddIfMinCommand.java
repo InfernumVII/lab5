@@ -3,7 +3,6 @@ package commands;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Scanner;
 
 import collection.Color;
 import collection.Coordinates;
@@ -11,6 +10,7 @@ import collection.Dragon;
 import collection.DragonCharacter;
 import collection.DragonHead;
 import collection.DragonType;
+import managers.CommandManager;
 import managers.DragonManager;
 import utility.ConsoleInputHandler;
 
@@ -20,18 +20,17 @@ import utility.ConsoleInputHandler;
  * Реализует интерфейс {@link Command}.
  */
 public class AddIfMinCommand implements Command {
-
-    private Scanner scanner;
+    private CommandManager commandManager;
     private DragonManager dragonManager;
 
     /**
      * Конструктор команды AddIfMinCommand.
      *
-     * @param scanner        объект {@link Scanner} для считывания пользовательского ввода.
+     * @param commandManager объект {@link CommandManager} для управления командами.
      * @param dragonManager  объект {@link DragonManager} для управления коллекцией драконов.
      */
-    public AddIfMinCommand(Scanner scanner, DragonManager dragonManager) {
-        this.scanner = scanner;
+    public AddIfMinCommand(CommandManager commandManager, DragonManager dragonManager) {
+        this.commandManager = commandManager;
         this.dragonManager = dragonManager;
     }
 
@@ -55,7 +54,7 @@ public class AddIfMinCommand implements Command {
     @Override
     public void execute(String arg){
         System.out.println("Добавление нового дракона.");
-        ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(scanner);
+        ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(commandManager);
         Integer id = dragonManager.getUniqueId();
         String name = consoleInputHandler.promtForString("Введите имя дракона:", false);
         long x = consoleInputHandler.promptForLong("Введите координату x:", false, -420, Long.MAX_VALUE);

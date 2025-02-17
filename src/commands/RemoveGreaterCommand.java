@@ -1,8 +1,10 @@
 package commands;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 import collection.Dragon;
+import managers.CommandManager;
 import managers.DragonManager;
 import utility.ConsoleInputHandler;
 
@@ -14,17 +16,17 @@ import utility.ConsoleInputHandler;
 public class RemoveGreaterCommand implements Command {
 
     private DragonManager dragonManager;
-    private Scanner scanner;
+    private CommandManager commandManager;
 
     /**
      * Конструктор команды RemoveGreaterCommand.
      *
-     * @param dragonManager объект {@link DragonManager} для управления коллекцией драконов.
-     * @param scanner объект {@link Scanner} для ввода данных пользователем.
+     * @param dragonManager объект {@link DragonManager} для управления командами.
+     * @param commandManager  объект {@link CommandManager} для управления коллекцией драконов.
      */
-    public RemoveGreaterCommand(DragonManager dragonManager, Scanner scanner){
+    public RemoveGreaterCommand(DragonManager dragonManager, CommandManager commandManager){
         this.dragonManager = dragonManager;
-        this.scanner = scanner;
+        this.commandManager = commandManager;
     }
 
     /**
@@ -45,19 +47,25 @@ public class RemoveGreaterCommand implements Command {
     @Override
     public void execute(String arg){
         System.out.println("Введите координаты элемента: ");
-        ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(scanner);
+        ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(commandManager);
         long x = consoleInputHandler.promptForLong("Введите координату x:", false, -420, Long.MAX_VALUE);
         long y = consoleInputHandler.promptForLong("Введите координату y:", false, Long.MIN_VALUE, 699);
         boolean finded = false;
+        
+        List<Dragon> dragonToDelete = new ArrayList<>();
         for (Dragon dragon : dragonManager.getDragonSet()) {
             if (x + y > dragon.getCoordinates().getX() + dragon.getCoordinates().getY()){
-                dragonManager.removeDragon(dragon);
-                System.out.println(String.format("Дракон с именем %s и айди %d был удалён", dragon.getName(), dragon.getId()));
                 finded = true;
+                dragonToDelete.add(dragon);
             }
         }
         if (finded == false){
             System.out.println("Драконы для удаления не найдены.");
+        } else {
+            for (Dragon dragon : dragonToDelete) {
+                dragonManager.removeDragon(dragon);
+                System.out.println(String.format("Дракон с именем %s и айди %d был удалён", dragon.getName(), dragon.getId()));
+            }
         }
     }
 

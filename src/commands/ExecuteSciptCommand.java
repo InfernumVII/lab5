@@ -1,10 +1,8 @@
 package commands;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 import managers.CommandManager;
 
@@ -43,22 +41,23 @@ public class ExecuteSciptCommand implements Command {
     @Override
     public void execute(String arg){
         System.out.println(String.format("Запуск команд из файла: %s", arg));
-        //List<String> output = new ArrayList<>();
-        try (FileInputStream file = new FileInputStream(arg);
-             InputStreamReader input = new InputStreamReader(file, StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(input)) {
+        try (FileInputStream file = new FileInputStream(arg)) {
             
-            String line = reader.readLine();
-            while (line != null) {
-                String[] commandParsed = CommandManager.parseCommand(line);
-                System.out.println(String.format("> %s", line));
-                if (commandParsed != null){
-                    commandManager.executeCommand(commandParsed[0], commandParsed[1]);
-                }
-                line = reader.readLine();
-                
+            Scanner scanner = new Scanner(file);
+            Scanner previousScanner = commandManager.getScanner();
+        
+            commandManager.setScanner(scanner);
+            commandManager.setInputIsIn(true);
+            
+            while (scanner.hasNextLine()) {
+                String command = scanner.nextLine().trim();
+                System.out.println("> " + command); 
+                String[] commanda = CommandManager.parseCommand(command);
+                commandManager.executeCommand(commanda[0], commanda[1]); 
             }
             
+            commandManager.setScanner(previousScanner);
+            commandManager.setInputIsIn(false);
 
         } catch (IOException e) {
             System.out.println("Произошла ошибка: " + e.getMessage());

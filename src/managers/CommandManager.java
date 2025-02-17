@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import commands.Command;
 
@@ -13,12 +14,7 @@ import commands.Command;
  * Реализует хранение, регистрацию, выполнение команд, а также отслеживание истории выполненных команд.
  */
 public class CommandManager {
-    private Map<String, Command> commands = new HashMap<>();
-
     private final static int HISTORY_SIZE = 5;
-    private Deque<String> history = new ArrayDeque<String>(HISTORY_SIZE);
-
-
     /**
      * Разбивает введённую команду на имя команды и её аргумент.
      *
@@ -37,6 +33,29 @@ public class CommandManager {
             commandArg = input[1];
         } 
         return new String[]{commandName, commandArg};
+    }
+    /**
+     * Возвращает максимальный размер истории команд.
+     *
+     * @return максимальный размер истории команд.
+     */
+    public static int getHistorySize() {
+        return HISTORY_SIZE;
+    }
+    private Map<String, Command> commands = new HashMap<>();
+    private Scanner scanner;
+
+
+    private Deque<String> history = new ArrayDeque<String>(HISTORY_SIZE);
+    private boolean inputIsIn = false;
+    
+
+    /**
+     * Конструктор по умолчанию для класса CommandManager.
+     * Инициализирует объект Scanner для чтения ввода из стандартного потока ввода (System.in).
+     */
+    public CommandManager (){
+        scanner = new Scanner(System.in);
     }
 
     /**
@@ -74,19 +93,6 @@ public class CommandManager {
     }
 
     /**
-     * Добавляет выполненную команду в историю.
-     * Если история превышает размер HISTORY_SIZE, удаляет самую старую команду.
-     *
-     * @param command имя выполненной команды.
-     */
-    private void storeCommand(String command){
-        if (history.size() >= HISTORY_SIZE) {
-            history.removeFirst(); 
-        }
-        history.addLast(command);
-    }
-
-    /**
      * Возвращает историю выполненных команд.
      *
      * @return история выполненных команд.
@@ -114,15 +120,6 @@ public class CommandManager {
     }
 
     /**
-     * Возвращает максимальный размер истории команд.
-     *
-     * @return максимальный размер истории команд.
-     */
-    public static int getHistorySize() {
-        return HISTORY_SIZE;
-    }
-
-    /**
      * Устанавливает историю выполненных команд.
      *
      * @param history история выполненных команд.
@@ -130,5 +127,53 @@ public class CommandManager {
     public void setHistory(Deque<String> history) {
         this.history = history;
     }
-    
+
+    /**
+     * Возвращает объект Scanner, используемый для ввода данных.
+     *
+     * @return объект Scanner
+     */
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    /**
+     * Устанавливает объект Scanner, который будет использоваться для ввода данных.
+     *
+     * @param scanner объект Scanner
+     */
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    /**
+     * Устанавливает флаг, указывающий, был ли введен ввод.
+     *
+     * @param inputIsIn true, если ввод был выполнен, иначе false
+     */
+    public void setInputIsIn(boolean inputIsIn) {
+        this.inputIsIn = inputIsIn;
+    }
+
+    /**
+     * Возвращает значение флага, указывающего, был ли введен ввод.
+     *
+     * @return true, если ввод был выполнен, иначе false
+     */
+    public boolean isInputIsIn() {
+        return inputIsIn;
+    }
+
+    /**
+     * Добавляет выполненную команду в историю.
+     * Если история превышает размер HISTORY_SIZE, удаляет самую старую команду.
+     *
+     * @param command имя выполненной команды.
+     */
+    private void storeCommand(String command){
+        if (history.size() >= HISTORY_SIZE) {
+            history.removeFirst(); 
+        }
+        history.addLast(command);
+    }
 }

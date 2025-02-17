@@ -46,7 +46,7 @@ public class InfoCommand implements Command {
      */
     @Override
     public String getDescription(){
-        return "desc";
+        return "вывод информации о коллекции.";
     }
     
 }

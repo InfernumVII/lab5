@@ -43,6 +43,7 @@ public class CSV {
 
         } catch (IOException e) {
             System.out.println("Произошла ошибка: " + e.getMessage());
+            return null;
         }
         
         return output;

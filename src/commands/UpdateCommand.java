@@ -1,5 +1,4 @@
 package commands;
-import java.util.Scanner;
 
 import collection.Color;
 import collection.Coordinates;
@@ -7,6 +6,7 @@ import collection.Dragon;
 import collection.DragonCharacter;
 import collection.DragonHead;
 import collection.DragonType;
+import managers.CommandManager;
 import managers.DragonManager;
 import utility.ArgHandler;
 import utility.ConsoleInputHandler;
@@ -18,17 +18,17 @@ import utility.ConsoleInputHandler;
  */
 public class UpdateCommand implements Command {
     private DragonManager dragonManager;
-    private Scanner scanner;
+    private CommandManager commandManager;
 
     /**
      * Конструктор команды UpdateCommand.
      *
-     * @param dragonManager объект {@link DragonManager} для управления коллекцией драконов.
-     * @param scanner объект {@link Scanner} для ввода данных пользователем.
+     * @param dragonManager объект {@link DragonManager} для управления командами.
+     * @param commandManager  объект {@link CommandManager} для управления коллекцией драконов.
      */
-    public UpdateCommand(DragonManager dragonManager, Scanner scanner){
+    public UpdateCommand(DragonManager dragonManager, CommandManager commandManager){
         this.dragonManager = dragonManager;
-        this.scanner = scanner;
+        this.commandManager = commandManager;
     }
 
     /**
@@ -55,7 +55,7 @@ public class UpdateCommand implements Command {
                 
                 System.out.println(String.format("Начинаем изменение дракона с ID-%d и именем %s", id, dragon.getName()));
 
-                ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(scanner);
+                ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(commandManager);
                 String name = consoleInputHandler.promtForString("Введите имя дракона:", false);
                 dragon.setName(name);
                 long x = consoleInputHandler.promptForLong("Введите координату x:", false, -420, Long.MAX_VALUE);
