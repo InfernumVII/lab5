@@ -53,7 +53,10 @@ public class ExecuteSciptCommand implements Command {
                 String command = scanner.nextLine().trim();
                 System.out.println("> " + command); 
                 String[] commanda = CommandManager.parseCommand(command);
-                commandManager.executeCommand(commanda[0], commanda[1]); 
+                if (commanda != null){
+                    commandManager.executeCommand(commanda[0], commanda[1]); 
+                }
+                
             }
             
             commandManager.setScanner(previousScanner);
