@@ -59,9 +59,9 @@ public class AddCommand implements Command {
         long y = consoleInputHandler.promptForLong("Введите координату y:", false, Long.MIN_VALUE, 699);
         LocalDate creationDate = LocalDate.now();
         Long age = consoleInputHandler.promptForLong("Введите возраст дракона:", false, 0, Long.MAX_VALUE);
-        Color color = Color.valueOf(consoleInputHandler.promptForEnum("Введите цвет дракона: %s", Color.getStringColors(), false));
-        DragonType type = DragonType.valueOf(consoleInputHandler.promptForEnum("Введите тип дракона: %s", DragonType.getStringColors(), false));
-        DragonCharacter character = DragonCharacter.valueOf(consoleInputHandler.promptForEnum("Введите характер дракона: %s", DragonCharacter.getStringColors(), false));
+        Color color = consoleInputHandler.promptForEnum("Введите цвет дракона: %s", Color.values(), false);
+        DragonType type = consoleInputHandler.promptForEnum("Введите тип дракона: %s", DragonType.values(), false);
+        DragonCharacter character = consoleInputHandler.promptForEnum("Введите характер дракона: %s", DragonCharacter.values(), false);
         Float eyesCount = consoleInputHandler.promptForFloat("Введите кол-во глаз у дракона:", true, -Float.MAX_VALUE, Float.MAX_VALUE);
         dragonManager.addDragon(new Dragon(id, name, new Coordinates(x, y), creationDate, age, color, type, character, new DragonHead(eyesCount)));
         System.out.println("Новый дракон успешно добавлен.");

@@ -1,4 +1,5 @@
 package utility;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import managers.CommandManager;
@@ -128,40 +129,34 @@ public class ConsoleInputHandler {
         }
     }
 
-    /**
-     * Запрашивает у пользователя значение из перечисления.
-     *
-     * @param prompt сообщение, которое выводится пользователю.
-     * @param enums массив строк, представляющих допустимые значения.
-     * @param allowNull разрешает ли метод возвращать первое значение из перечисления, если ввод пустой.
-     * @return введённое пользователем значение из перечисления.
-     */
-    public String promptForEnum(String prompt, String[] enums, boolean allowNull){
-        String joinedEnums = String.join(", ", enums);
-        while (true){
+    //TODO add java doc
+    public <E extends Enum<E>> E promptForEnum(String prompt, E[] enums, boolean allowNull){
+        String joinedEnums = Arrays.toString(enums);
+        while (true) {
             System.out.println(String.format(prompt, joinedEnums));
             String in = scanner.nextLine();
             printIfInputIsIn(in);
             if (in.isEmpty()){
                 if (allowNull){
-                    in = enums[0];
+                    return enums[0];
                 } else {
                     System.out.println("Значение поля не может быть пустым.");
                     continue;
                 }
             }
-
             boolean isInEnums = false;
-            for (String string : enums) {
-                if (in.equals(string)){
-                    isInEnums = true;
+            for (E enu : enums) {
+                if (in.equalsIgnoreCase(enu.name()) || in.equals(Integer.toString(enu.ordinal() + 1))) {
+                    return enu;
                 }
             }
             if (isInEnums == false){
                 System.out.println(String.format("Поле должно быть одним из вариантов: (%s)", joinedEnums));
                 continue;
             }
-            return in;
+            
+
+
         }
 
     }

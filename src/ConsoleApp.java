@@ -1,6 +1,8 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import collection.DragonCharacter;
 import commands.AddCommand;
 import commands.AddIfMinCommand;
 import commands.ClearCommand;
@@ -20,7 +22,6 @@ import commands.UpdateCommand;
 import managers.CommandManager;
 import managers.DragonManager;
 import utility.CSV;
-
 
 /**
  * Основной класс приложения, отвечающий за взаимодействие с пользователем через консоль.
@@ -44,7 +45,7 @@ public class ConsoleApp {
                 System.out.println("Коллекция успешно загружена из файла: " + fileName);
             } 
         }
-
+        
         
         CommandManager manager = new CommandManager();
         Scanner scanner = manager.getScanner();

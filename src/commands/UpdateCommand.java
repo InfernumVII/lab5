@@ -63,11 +63,11 @@ public class UpdateCommand implements Command {
                 dragon.setCoordinates(new Coordinates(x, y));
                 Long age = consoleInputHandler.promptForLong("Введите возраст дракона:", false, 0, Long.MAX_VALUE);
                 dragon.setAge(age);
-                Color color = Color.valueOf(consoleInputHandler.promptForEnum("Введите цвет дракона: %s", Color.getStringColors(), false));
+                Color color = consoleInputHandler.promptForEnum("Введите цвет дракона: %s", Color.values(), false);
                 dragon.setColor(color);
-                DragonType type = DragonType.valueOf(consoleInputHandler.promptForEnum("Введите тип дракона: %s", DragonType.getStringColors(), false));
+                DragonType type = consoleInputHandler.promptForEnum("Введите тип дракона: %s", DragonType.values(), false);
                 dragon.setType(type);
-                DragonCharacter character = DragonCharacter.valueOf(consoleInputHandler.promptForEnum("Введите характер дракона: %s", DragonCharacter.getStringColors(), false));
+                DragonCharacter character = consoleInputHandler.promptForEnum("Введите характер дракона: %s", DragonCharacter.values(), false);
                 dragon.setCharacter(character);
                 Float eyesCount = consoleInputHandler.promptForFloat("Введите кол-во глаз у дракона:", true, -Float.MAX_VALUE, Float.MAX_VALUE);
                 dragon.setHead(new DragonHead(eyesCount));
