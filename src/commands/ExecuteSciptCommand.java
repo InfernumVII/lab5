@@ -47,11 +47,11 @@ public class ExecuteSciptCommand implements Command {
             Scanner previousScanner = commandManager.getScanner();
         
             commandManager.setScanner(scanner);
-            commandManager.setInputIsIn(true);
+            //commandManager.setInputIsIn(true);
             
             while (scanner.hasNextLine()) {
                 String command = scanner.nextLine().trim();
-                System.out.println("> " + command); 
+                //System.out.println("> " + command); 
                 String[] commanda = CommandManager.parseCommand(command);
                 if (commanda != null){
                     commandManager.executeCommand(commanda[0], commanda[1]); 
@@ -60,7 +60,8 @@ public class ExecuteSciptCommand implements Command {
             }
             
             commandManager.setScanner(previousScanner);
-            commandManager.setInputIsIn(false);
+            System.out.println("Все команды были выполнены");
+            //commandManager.setInputIsIn(false);
 
         } catch (IOException e) {
             System.out.println("Произошла ошибка: " + e.getMessage());
