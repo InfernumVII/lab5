@@ -1,5 +1,7 @@
 package utility;
 
+import java.util.Arrays;
+
 /**
  * Класс для проверки и обработки аргументов команд.
  * Предоставляет методы для проверки типов и диапазонов значений аргументов.
@@ -41,12 +43,12 @@ public class ArgHandler {
     }
 
     //TODO add java doc
-    public static boolean checkArgForEnumString(String arg, E[] enums){
-        String joinedEnums = String.join(", ", enums);
+    public static <E extends Enum<E>> boolean checkArgForEnumString(String arg, E[] enums){
+        String joinedEnums = Arrays.toString(enums);
         boolean isInEnums = false;
-        for (String string : enums) {
-            if (arg.equals(string)){
-                isInEnums = true;
+        for (E enu : enums) {
+            if (arg.equalsIgnoreCase(enu.name()) || arg.equals(Integer.toString(enu.ordinal() + 1))) {
+                return true;
             }
         }
         if (isInEnums == false){

@@ -37,7 +37,7 @@ public class FilterByCharacterCommmand implements Command {
      */
     @Override
     public void execute(String arg){
-        if (ArgHandler.checkArgForEnumString(arg, DragonCharacter.getStringColors())){
+        if (ArgHandler.checkArgForEnumString(arg, DragonCharacter.values())){
             System.out.println("Драконы с таким же характером: ");
             DragonCharacter dragonCharacter = DragonCharacter.valueOf(arg);
             for (Dragon dragon : dragonManager.getSortedDragons()) {

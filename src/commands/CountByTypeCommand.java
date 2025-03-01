@@ -39,7 +39,7 @@ public class CountByTypeCommand implements Command {
     @Override
     public void execute(String arg){
         int count = 0;
-        if (ArgHandler.checkArgForEnumString(arg, DragonType.getStringColors())){
+        if (ArgHandler.checkArgForEnumString(arg, DragonType.values())){
             DragonType dragonType = DragonType.valueOf(arg);
             for (Dragon dragon : dragonManager.getSortedDragons()) {
                 if (dragon.getType() == dragonType){
