@@ -55,16 +55,18 @@ public class AddIfMinCommand implements Command {
     public void execute(String arg){
         System.out.println("Добавление нового дракона.");
         ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(commandManager);
-        Integer id = dragonManager.getUniqueId();
-        String name = consoleInputHandler.promtForString("Введите имя дракона:", false);
-        long x = consoleInputHandler.promptForLong("Введите координату x:", false, -420, Long.MAX_VALUE);
-        long y = consoleInputHandler.promptForLong("Введите координату y:", false, Long.MIN_VALUE, 699);
-        LocalDate creationDate = LocalDate.now();
-        Long age = consoleInputHandler.promptForLong("Введите возраст дракона:", false, 0, Long.MAX_VALUE);
-        Color color = consoleInputHandler.promptForEnum("Введите цвет дракона: %s", Color.values(), false);
-        DragonType type = consoleInputHandler.promptForEnum("Введите тип дракона: %s", DragonType.values(), false);
-        DragonCharacter character = consoleInputHandler.promptForEnum("Введите характер дракона: %s", DragonCharacter.values(), false);
-        Float eyesCount = consoleInputHandler.promptForFloat("Введите кол-во глаз у дракона:", true, -Float.MAX_VALUE, Float.MAX_VALUE);
+        Dragon dragon = new Dragon.Builder()
+                    .withId(dragonManager.getUniqueId())
+                    .withName(consoleInputHandler.promtForString("Введите имя дракона:", false))
+                    .withCoordinates(new Coordinates(consoleInputHandler.promptForLong("Введите координату x:", false, -420, Long.MAX_VALUE),
+                                                        consoleInputHandler.promptForLong("Введите координату y:", false, Long.MIN_VALUE, 699)))
+                    .withDate(LocalDate.now())
+                    .withAge(consoleInputHandler.promptForLong("Введите возраст дракона:", false, 0, Long.MAX_VALUE))
+                    .withColor(consoleInputHandler.promptForEnum("Введите цвет дракона: %s", Color.values(), false))
+                    .withType(consoleInputHandler.promptForEnum("Введите тип дракона: %s", DragonType.values(), false))
+                    .withCharacter(consoleInputHandler.promptForEnum("Введите характер дракона: %s", DragonCharacter.values(), false))
+                    .withHead(new DragonHead(consoleInputHandler.promptForFloat("Введите кол-во глаз у дракона:", true, -Float.MAX_VALUE, Float.MAX_VALUE)))
+                    .build();
         Dragon minDragon = Collections.min(dragonManager.getDragonSet(), new Comparator<Dragon>() {
             @Override
             public int compare(Dragon d1, Dragon d2) {
@@ -75,8 +77,8 @@ public class AddIfMinCommand implements Command {
                 return Long.compare(d1.getCoordinates().getY(), d2.getCoordinates().getY());
             }
         });
-        if (x + y < minDragon.getCoordinates().getX() + minDragon.getCoordinates().getY()){
-            dragonManager.addDragon(new Dragon(id, name, new Coordinates(x, y), creationDate, age, color, type, character, new DragonHead(eyesCount)));
+        if (dragon.getCoordinates().getX() + dragon.getCoordinates().getY() < minDragon.getCoordinates().getX() + minDragon.getCoordinates().getY()){
+            dragonManager.addDragon(dragon);
             System.out.println("Новый дракон успешно добавлен.");
         } else {
             System.out.println("Ваш дракон имеет большее значение, чем у минимального элемента коллекции.");

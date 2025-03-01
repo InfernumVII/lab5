@@ -16,29 +16,80 @@ public class Dragon implements Comparable<Dragon> {
     private DragonCharacter character; //Поле не может быть null
     private DragonHead head;
 
-    /**
-     * Конструктор для создания объекта дракона.
-     *
-     * @param id уникальный идентификатор дракона (должен быть больше 0 и не null).
-     * @param name имя дракона (не может быть null или пустой строкой).
-     * @param coordinates координаты дракона (не могут быть null).
-     * @param creationDate дата создания дракона (не может быть null).
-     * @param age возраст дракона (должен быть больше 0 и не null).
-     * @param color цвет дракона (не может быть null).
-     * @param type тип дракона (не может быть null).
-     * @param character характер дракона (не может быть null).
-     * @param head голова дракона.
-     */
-    public Dragon(int id, String name, Coordinates coordinates, LocalDate creationDate, Long age, Color color, DragonType type, DragonCharacter character, DragonHead head) {
-        this.id = id;
-        this.name = name;
-        this.coordinates = coordinates;
-        this.creationDate = creationDate;
-        this.age = age;
-        this.color = color;
-        this.type = type;
-        this.character = character;
-        this.head = head;
+
+    public Dragon(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.coordinates = builder.coordinates;
+        this.creationDate = builder.creationDate;
+        this.age = builder.age;
+        this.color = builder.color;
+        this.type = builder.type;
+        this.character = builder.character;
+        this.head = builder.head;
+    }
+
+    //TODO add javadoc
+    public static class  Builder {
+        private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+        private String name; //Поле не может быть null, Строка не может быть пустой
+        private Coordinates coordinates; //Поле не может быть null
+        private java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+        private Long age; //Значение поля должно быть больше 0, Поле не может быть null
+        private Color color; //Поле не может быть null
+        private DragonType type; //Поле не может быть null
+        private DragonCharacter character; //Поле не может быть null
+        private DragonHead head;
+
+        public Builder withId(Integer id){
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name){
+            this.name = name;
+            return this;
+        }
+        
+        public Builder withCoordinates(Coordinates coordinates){
+            this.coordinates = coordinates;
+            return this;
+        }
+
+        public Builder withDate(java.time.LocalDate creationDate){
+            this.creationDate = creationDate;
+            return this;
+        }
+
+        public Builder withAge(Long age){
+            this.age = age;
+            return this;
+        }
+
+        public Builder withColor(Color color){
+            this.color = color;
+            return this;
+        }
+
+        public Builder withType(DragonType type){
+            this.type = type;
+            return this;
+        }
+
+        public Builder withCharacter(DragonCharacter character){
+            this.character = character;
+            return this;
+        }
+
+        public Builder withHead(DragonHead head){
+            this.head = head;
+            return this;
+        }
+
+        public Dragon build(){
+            return new Dragon(this);
+        }
+
     }
 
     /**

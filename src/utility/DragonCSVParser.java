@@ -1,6 +1,7 @@
 package utility;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 import collection.Color;
 import collection.Coordinates;
@@ -23,21 +24,19 @@ public class DragonCSVParser {
      */
     public static Dragon parseDragonFromRow(String[] row) {
         try {
-            int id = Integer.parseInt(row[0]);
-            String name = row[1];
-            String[] coordinates = row[2].split(";");
-            long x = Long.parseLong(coordinates[0]);
-            long y = Long.parseLong(coordinates[1]);
-            LocalDate creationDate = LocalDate.parse(row[3], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            Long age = Long.parseLong(row[4]);
-            Color color = Color.valueOf(row[5]);
-            DragonType type = DragonType.valueOf(row[6]);
-            DragonCharacter character = DragonCharacter.valueOf(row[7]);
-            float eyesCount = Float.parseFloat(row[8]);
+            Dragon dragon = new Dragon.Builder()
+                        .withId(Integer.parseInt(row[0]))
+                        .withName(row[1])
+                        .withCoordinates(new Coordinates(Long.parseLong(row[2].split(";")[0]), Long.parseLong(row[2].split(";")[1])))
+                        .withDate(LocalDate.parse(row[3], DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                        .withAge(Long.parseLong(row[4]))
+                        .withColor(Color.valueOf(row[5]))
+                        .withType(DragonType.valueOf(row[6]))
+                        .withCharacter(DragonCharacter.valueOf(row[7]))
+                        .withHead(new DragonHead(Float.parseFloat(row[8])))
+                        .build();
 
-            return new Dragon(
-                    id, name, new Coordinates(x, y), creationDate, age, color, type, character, new DragonHead(eyesCount)
-            );
+            return dragon;
         } catch (Exception e) {
             System.err.println("Ошибка парсинга: " + String.join(",", row));
             e.printStackTrace();
