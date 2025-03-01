@@ -1,8 +1,7 @@
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Scanner;
 
-import collection.DragonCharacter;
 import commands.AddCommand;
 import commands.AddIfMinCommand;
 import commands.ClearCommand;

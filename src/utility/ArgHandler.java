@@ -40,14 +40,8 @@ public class ArgHandler {
         return checkArgForInt(arg, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    /**
-     * Проверяет, соответствует ли аргумент одному из допустимых значений перечисления.
-     *
-     * @param arg строка, содержащая аргумент.
-     * @param enums массив строк, представляющих допустимые значения.
-     * @return {@code true}, если аргумент соответствует одному из допустимых значений, иначе {@code false}.
-     */
-    public static boolean checkArgForEnumString(String arg, String[] enums){
+    //TODO add java doc
+    public static boolean checkArgForEnumString(String arg, E[] enums){
         String joinedEnums = String.join(", ", enums);
         boolean isInEnums = false;
         for (String string : enums) {
