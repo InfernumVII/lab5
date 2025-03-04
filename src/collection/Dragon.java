@@ -29,7 +29,10 @@ public class Dragon implements Comparable<Dragon> {
         this.head = builder.head;
     }
 
-    //TODO add javadoc
+    /**
+     * Внутренний класс для построения объекта Dragon.
+     * Использует шаблон проектирования Builder.
+     */
     public static class  Builder {
         private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
         private String name; //Поле не может быть null, Строка не может быть пустой
@@ -41,51 +44,110 @@ public class Dragon implements Comparable<Dragon> {
         private DragonCharacter character; //Поле не может быть null
         private DragonHead head;
 
+        /**
+         * Устанавливает ID дракона.
+         *
+         * @param id ID дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withId(Integer id){
             this.id = id;
             return this;
         }
 
+        /**
+         * Устанавливает имя дракона.
+         *
+         * @param name имя дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withName(String name){
             this.name = name;
             return this;
         }
         
+        /**
+         * Устанавливает координаты дракона.
+         *
+         * @param coordinates координаты дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withCoordinates(Coordinates coordinates){
             this.coordinates = coordinates;
             return this;
         }
 
+        /**
+         * Устанавливает дату создания дракона.
+         *
+         * @param creationDate дата создания дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withDate(java.time.LocalDate creationDate){
             this.creationDate = creationDate;
             return this;
         }
 
+        /**
+         * Устанавливает возраст дракона.
+         *
+         * @param age возраст дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withAge(Long age){
             this.age = age;
             return this;
         }
 
+        /**
+         * Устанавливает цвет дракона.
+         *
+         * @param color цвет дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withColor(Color color){
             this.color = color;
             return this;
         }
 
+        /**
+         * Устанавливает тип дракона.
+         *
+         * @param type тип дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withType(DragonType type){
             this.type = type;
             return this;
         }
 
+        /**
+         * Устанавливает характер дракона.
+         *
+         * @param character характер дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withCharacter(DragonCharacter character){
             this.character = character;
             return this;
         }
 
+        /**
+         * Устанавливает голову дракона.
+         *
+         * @param head голова дракона.
+         * @return текущий объект Builder.
+         */
         public Builder withHead(DragonHead head){
             this.head = head;
             return this;
         }
 
+        /**
+         * Создает объект Dragon с текущими параметрами.
+         *
+         * @return новый объект Dragon.
+         */
         public Dragon build(){
             return new Dragon(this);
         }

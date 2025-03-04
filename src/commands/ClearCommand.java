@@ -8,7 +8,6 @@ import managers.DragonManager;
 public class ClearCommand implements Command{
     private DragonManager dragonManager;
 
-
     /**
      * Конструктор команды ClearCommand.
      *
