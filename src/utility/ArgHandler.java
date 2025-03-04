@@ -42,7 +42,16 @@ public class ArgHandler {
         return checkArgForInt(arg, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    //TODO add java doc
+    /**
+     * Проверяет, соответствует ли аргумент одному из значений перечисления (enum).
+     * Аргумент может быть как строковым представлением значения перечисления (без учета регистра),
+     * так и числовым представлением его порядкового номера (начиная с 1).
+     *
+     * @param <E> тип перечисления.
+     * @param arg строка, содержащая аргумент.
+     * @param enums массив значений перечисления.
+     * @return {@code true}, если аргумент соответствует одному из значений перечисления, иначе {@code false}.
+     */
     public static <E extends Enum<E>> boolean checkArgForEnumString(String arg, E[] enums){
         String joinedEnums = Arrays.toString(enums);
         boolean isInEnums = false;

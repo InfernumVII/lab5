@@ -129,7 +129,17 @@ public class ConsoleInputHandler {
         }
     }
 
-    //TODO add java doc
+    /**
+     * Запрашивает у пользователя значение из перечисления (enum).
+     * Аргумент может быть как строковым представлением значения перечисления (без учета регистра),
+     * так и числовым представлением его порядкового номера (начиная с 1).
+     *
+     * @param <E> тип перечисления.
+     * @param prompt сообщение, которое выводится пользователю.
+     * @param enums массив значений перечисления.
+     * @param allowNull разрешает ли метод возвращать значение по умолчанию (первый элемент перечисления), если ввод пустой.
+     * @return введённое пользователем значение из перечисления.
+     */
     public <E extends Enum<E>> E promptForEnum(String prompt, E[] enums, boolean allowNull){
         String joinedEnums = Arrays.toString(enums);
         while (true) {
