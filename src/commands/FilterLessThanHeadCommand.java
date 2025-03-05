@@ -2,6 +2,7 @@ package commands;
 import collection.Dragon;
 import managers.DragonManager;
 import utility.ArgHandler;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для вывода элементов коллекции, значение поля head которых меньше заданного.
@@ -38,10 +39,10 @@ public class FilterLessThanHeadCommand implements Command {
     public void execute(String arg){
         if (ArgHandler.checkArgForFloat(arg)){
             Float eyesCount = Float.parseFloat(arg);
-            System.out.println(String.format("Драконы у которых кол-во глаз на говоле меньше чем: %s", eyesCount));
+            ConsoleInputHandler.printIfInputIsIn(String.format("Драконы у которых кол-во глаз на говоле меньше чем: %s", eyesCount));
             for (Dragon dragon: dragonManager.getSortedDragons()) {
                 if (dragon.getHead().getEyesCount() < eyesCount){
-                    System.out.println(dragon);
+                    ConsoleInputHandler.printIfInputIsIn(dragon);
                 }
             }
         }

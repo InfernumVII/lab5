@@ -4,6 +4,7 @@ package commands;
 import collection.Dragon;
 import managers.DragonManager;
 import utility.CSV;
+import utility.ConsoleInputHandler;
 import utility.DragonCSVParser;
 
 /**
@@ -47,7 +48,7 @@ public class SaveCommand implements Command {
                 CSV.writeOneLine(arg, row, true);
             }
         }
-        System.out.println(String.format("Драконы сохранены в файл: %s", arg));
+        ConsoleInputHandler.printIfInputIsIn(String.format("Драконы сохранены в файл: %s", arg));
     }
 
     /**

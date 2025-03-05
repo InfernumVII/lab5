@@ -1,6 +1,7 @@
 package commands;
 import collection.Dragon;
 import managers.DragonManager;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для вывода всех элементов коллекции в строковом представлении.
@@ -35,7 +36,7 @@ public class ShowCommand implements Command {
     @Override
     public void execute(String arg){
         for (Dragon dragon : dragonManager.getSortedDragons()) {
-            System.out.println(dragon);
+            ConsoleInputHandler.printIfInputIsIn(dragon);
         }
     }
 

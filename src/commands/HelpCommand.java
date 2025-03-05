@@ -2,6 +2,7 @@ package commands;
 import java.util.Map;
 
 import managers.CommandManager;
+import utility.ConsoleInputHandler;
 /**
  * Команда для вывода справки по доступным командам.
  * Реализует интерфейс {@link Command}.
@@ -36,15 +37,15 @@ public class HelpCommand implements Command {
     @Override
     public void execute(String arg){
         Map<String, Command> commands = commandManager.getCommands();
-        System.out.println("Справка по командам: ");
+        ConsoleInputHandler.printIfInputIsIn("Справка по командам: ");
         for (Map.Entry<String, Command> entry : commands.entrySet()) {
             
             String commandName = entry.getKey();
             Command command = entry.getValue();
             if (command.isHasArgs()){
-                System.out.println(String.format("%s %s - %s", commandName, command.stringArgument(), command.getDescription()));
+                ConsoleInputHandler.printIfInputIsIn(String.format("%s %s - %s", commandName, command.stringArgument(), command.getDescription()));
             } else {
-                System.out.println(String.format("%s - %s", commandName, command.getDescription()));
+                ConsoleInputHandler.printIfInputIsIn(String.format("%s - %s", commandName, command.getDescription()));
             }
         }
     }

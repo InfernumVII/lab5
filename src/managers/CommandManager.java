@@ -47,7 +47,7 @@ public class CommandManager {
 
 
     private Deque<String> history = new ArrayDeque<String>(HISTORY_SIZE);
-    private boolean inputIsIn = false;
+    private boolean inputIsIn = true;
 
     /**
      * Конструктор по умолчанию для класса CommandManager.

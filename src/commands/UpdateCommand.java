@@ -53,7 +53,7 @@ public class UpdateCommand implements Command {
             Dragon dragon = dragonManager.returnDragonById(id);
             if (dragon != null){
                 
-                System.out.println(String.format("Начинаем изменение дракона с ID-%d и именем %s", id, dragon.getName()));
+                ConsoleInputHandler.printIfInputIsIn(String.format("Начинаем изменение дракона с ID-%d и именем %s", id, dragon.getName()));
 
                 ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(commandManager);
                 String name = consoleInputHandler.promtForString("Введите имя дракона:", false);
@@ -72,7 +72,7 @@ public class UpdateCommand implements Command {
                 Float eyesCount = consoleInputHandler.promptForFloat("Введите кол-во глаз у дракона:", true, -Float.MAX_VALUE, Float.MAX_VALUE);
                 dragon.setHead(new DragonHead(eyesCount));
 
-                System.out.println(String.format("Дракон с ID-%d успешно обновлён!", id));
+                ConsoleInputHandler.printIfInputIsIn(String.format("Дракон с ID-%d успешно обновлён!", id));
             }
         }
     }

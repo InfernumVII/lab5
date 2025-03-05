@@ -3,6 +3,7 @@ import collection.Dragon;
 import collection.DragonCharacter;
 import managers.DragonManager;
 import utility.ArgHandler;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для вывода элементов коллекции, значение поля character которых равно заданному.
@@ -38,11 +39,11 @@ public class FilterByCharacterCommmand implements Command {
     @Override
     public void execute(String arg){
         if (ArgHandler.checkArgForEnumString(arg, DragonCharacter.values())){
-            System.out.println("Драконы с таким же характером: ");
+            ConsoleInputHandler.printIfInputIsIn("Драконы с таким же характером: ");
             DragonCharacter dragonCharacter = DragonCharacter.valueOf(arg);
             for (Dragon dragon : dragonManager.getSortedDragons()) {
                 if (dragon.getCharacter() == dragonCharacter){
-                    System.out.println(dragon);
+                    ConsoleInputHandler.printIfInputIsIn(dragon);
                 }
             }
         }

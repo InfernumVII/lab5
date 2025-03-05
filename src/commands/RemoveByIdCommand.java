@@ -2,6 +2,7 @@ package commands;
 import collection.Dragon;
 import managers.DragonManager;
 import utility.ArgHandler;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для удаления элемента коллекции по его ID.
@@ -41,7 +42,7 @@ public class RemoveByIdCommand implements Command {
             Dragon dragon = dragonManager.returnDragonById(id);
             if (dragon != null){
                 dragonManager.removeDragon(dragon);
-                System.out.println("Дракон удалён.");
+                ConsoleInputHandler.printIfInputIsIn("Дракон удалён.");
             }
         }
     }

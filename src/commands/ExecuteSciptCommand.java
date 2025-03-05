@@ -2,9 +2,12 @@ package commands;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 import managers.CommandManager;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для выполнения скрипта из указанного файла.
@@ -12,6 +15,7 @@ import managers.CommandManager;
  */
 public class ExecuteSciptCommand implements Command {
     private CommandManager commandManager;
+    private static Set<String> executedScripts = new HashSet<>();
 
     /**
      * Конструктор команды ExecuteSciptCommand.
@@ -40,6 +44,13 @@ public class ExecuteSciptCommand implements Command {
      */
     @Override
     public void execute(String arg){
+        if (executedScripts.contains(arg)) {
+            System.out.println("Ошибка: рекурсия обнаружена. Скрипт " + arg + " уже выполняется.");
+            return;
+        }
+            
+        executedScripts.add(arg);
+
         System.out.println(String.format("Запуск команд из файла: %s", arg));
         try (FileInputStream file = new FileInputStream(arg)) {
             
@@ -47,11 +58,12 @@ public class ExecuteSciptCommand implements Command {
             Scanner previousScanner = commandManager.getScanner();
         
             commandManager.setScanner(scanner);
-            //commandManager.setInputIsIn(true);
-            
+            commandManager.setInputIsIn(false);
+            ConsoleInputHandler.update(false);
+
             while (scanner.hasNextLine()) {
                 String command = scanner.nextLine().trim();
-                //System.out.println("> " + command); 
+                //ConsoleInputHandler.printIfInputIsIn("> " + command); 
                 String[] commanda = CommandManager.parseCommand(command);
                 if (commanda != null){
                     commandManager.executeCommand(commanda[0], commanda[1]); 
@@ -61,10 +73,13 @@ public class ExecuteSciptCommand implements Command {
             
             commandManager.setScanner(previousScanner);
             System.out.println("Все команды были выполнены");
-            //commandManager.setInputIsIn(false);
+            commandManager.setInputIsIn(true);
+            ConsoleInputHandler.update(true);
 
         } catch (IOException e) {
-            System.out.println("Произошла ошибка: " + e.getMessage());
+            ConsoleInputHandler.printIfInputIsIn("Произошла ошибка: " + e.getMessage());
+        } finally {
+            executedScripts.remove(arg);
         }
         
         

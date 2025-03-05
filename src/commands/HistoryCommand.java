@@ -2,6 +2,7 @@ package commands;
 import java.util.Deque;
 
 import managers.CommandManager;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для вывода последних 5 выполненных команд (без аргументов).
@@ -38,7 +39,7 @@ public class HistoryCommand implements Command {
     public void execute(String arg){
         Deque<String> history = commandManager.getHistory();
         for (String string : history) {
-            System.out.println(string);
+            ConsoleInputHandler.printIfInputIsIn(string);
         }
     }
 

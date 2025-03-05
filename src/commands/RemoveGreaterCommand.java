@@ -46,7 +46,7 @@ public class RemoveGreaterCommand implements Command {
      */
     @Override
     public void execute(String arg){
-        System.out.println("Введите координаты элемента: ");
+        ConsoleInputHandler.printIfInputIsIn("Введите координаты элемента: ");
         ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(commandManager);
         long x = consoleInputHandler.promptForLong("Введите координату x:", false, -420, Long.MAX_VALUE);
         long y = consoleInputHandler.promptForLong("Введите координату y:", false, Long.MIN_VALUE, 699);
@@ -60,11 +60,11 @@ public class RemoveGreaterCommand implements Command {
             }
         }
         if (finded == false){
-            System.out.println("Драконы для удаления не найдены.");
+            ConsoleInputHandler.printIfInputIsIn("Драконы для удаления не найдены.");
         } else {
             for (Dragon dragon : dragonToDelete) {
                 dragonManager.removeDragon(dragon);
-                System.out.println(String.format("Дракон с именем %s и айди %d был удалён", dragon.getName(), dragon.getId()));
+                ConsoleInputHandler.printIfInputIsIn(String.format("Дракон с именем %s и айди %d был удалён", dragon.getName(), dragon.getId()));
             }
         }
     }

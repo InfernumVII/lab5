@@ -1,5 +1,6 @@
 package commands;
 import managers.DragonManager;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для очистки коллекции драконов.
@@ -35,7 +36,7 @@ public class ClearCommand implements Command{
     @Override
     public void execute(String arg){
         dragonManager.clearDragonSet();
-        System.out.println("Драконы были очищены!");
+        ConsoleInputHandler.printIfInputIsIn("Драконы были очищены!");
     }
 
     /**

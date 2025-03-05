@@ -1,6 +1,7 @@
 package commands;
 
 import managers.DragonManager;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для вывода информации о коллекции.
@@ -34,9 +35,9 @@ public class InfoCommand implements Command {
      */
     @Override
     public void execute(String arg){
-        System.out.println("Тип коллекции: " + dragonManager.getTypeName());
-        System.out.println("Дата инициализации: " + dragonManager.getInitializationDate());
-        System.out.println("Количество элементов: " + dragonManager.getDragonSet().size());
+        ConsoleInputHandler.printIfInputIsIn("Тип коллекции: " + dragonManager.getTypeName());
+        ConsoleInputHandler.printIfInputIsIn("Дата инициализации: " + dragonManager.getInitializationDate());
+        ConsoleInputHandler.printIfInputIsIn("Количество элементов: " + dragonManager.getDragonSet().size());
     }
 
     /**

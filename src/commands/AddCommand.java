@@ -50,8 +50,7 @@ public class AddCommand implements Command {
      */
     @Override
     public void execute(String arg){
-
-        System.out.println("Добавление нового дракона.");
+        ConsoleInputHandler.printIfInputIsIn("Добавление нового дракона.");
         ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler(commandManager);
         Dragon dragon = new Dragon.Builder()
                     .withId(dragonManager.getUniqueId())
@@ -67,7 +66,7 @@ public class AddCommand implements Command {
                     .build();
 
         dragonManager.addDragon(dragon);
-        System.out.println("Новый дракон успешно добавлен.");
+        ConsoleInputHandler.printIfInputIsIn("Новый дракон успешно добавлен.");
         
     }
 

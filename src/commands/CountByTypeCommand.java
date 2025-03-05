@@ -3,6 +3,7 @@ import collection.Dragon;
 import collection.DragonType;
 import managers.DragonManager;
 import utility.ArgHandler;
+import utility.ConsoleInputHandler;
 
 /**
  * Команда для подсчета количества драконов определенного типа в коллекции.
@@ -46,7 +47,7 @@ public class CountByTypeCommand implements Command {
                     count += 1;
                 }
             }
-            System.out.println(String.format("Количество драконов с данным типом: %d", count));
+            ConsoleInputHandler.printIfInputIsIn(String.format("Количество драконов с данным типом: %d", count));
         }
     }
 
